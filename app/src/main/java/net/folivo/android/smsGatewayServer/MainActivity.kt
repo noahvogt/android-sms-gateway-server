@@ -130,17 +130,18 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<AppCompatImageButton>(R.id.buttonCertificate).setOnClickListener {
 
-            if (storagePermissionGranted()) {
+            // if (Companion.storagePermissionGranted(this)) {
                 // Choose a directory using the system's file picker.
                 val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
                     addCategory(Intent.CATEGORY_OPENABLE)
                     type = "application/x-pkcs12"
                 }
                 certificateResultLauncher.launch(intent)
-
+            /*
             } else {
                 storagePermissionResultLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
             }
+            */
         }
 
         findViewById<SwitchCompat>(R.id.switchStartServer).setOnCheckedChangeListener { viewButton, isChecked ->
@@ -304,10 +305,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun storagePermissionGranted(): Boolean {
-        return checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
-    }
-
 
     private fun isDefaultSmsApp(): Boolean {
         return this.packageName == Telephony.Sms.getDefaultSmsPackage(this)
@@ -371,4 +368,12 @@ class MainActivity : AppCompatActivity() {
         }
         return true
     }
+
+    /*
+    companion object {
+        private fun storagePermissionGranted(mainActivity: MainActivity): Boolean {
+            return mainActivity.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+        }
+    }
+     */
 }
